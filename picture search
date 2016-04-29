@@ -1,0 +1,30 @@
+#!/bin/bash
+
+
+COUNTER=900
+COUNTER2=600
+
+while [ $COUNTER -lt 2500 ]; do
+	let COUNTER2=600
+	while [ $COUNTER2 -lt 2000 ]; do
+		if [ $COUNTER2 -ge $COUNTER ]; then
+			echo continues $COUNTER x $COUNTER2
+			let COUNTER2=COUNTER2+10
+			break
+		fi
+		output=$(curl -w '%{content_type}' -o temp  http://polpix.sueddeutsche.com/polopoly_fs/XXX!/httpImage/image.jpg_gen/derivatives/${COUNTER}x${COUNTER2}/image.jpg)
+		echo $output
+		echo $COUNTER x $COUNTER2
+		if [ "$output" == "image/jpeg" ]; then
+			cp temp bild${COUNTER}${COUNTER2}.jpg
+			echo FOUND ONE
+		else
+			echo NOTHING FOUND
+		fi
+		let COUNTER2=COUNTER2+10
+		#sleep 1
+	done
+	let COUNTER=COUNTER+10
+done
+exit 0 
+
