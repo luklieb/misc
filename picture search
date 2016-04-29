@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#Script which searches for different sized images in a given URL
 
 COUNTER=900
 COUNTER2=600
